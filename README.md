@@ -1,5 +1,9 @@
-# Port Forwarding Checker :
-  A Python3 Project That Checks If A Port Is Forwarded Via The Router To Your Device Or Not .
+# Port Checker :
+  * A Python3 Project That Checks :
+
+       - If A Port Is Forwarded Locally To Your Device Or Not.
+       - If A Port Is Forwarded On your Router To Your Device.
+       - If A Port Is Opened On A Remote Server.
   
   * Note :
   
