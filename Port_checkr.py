@@ -12,7 +12,7 @@ server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
 def usage():
-	print('''	| Port Forwarding Checker - By A_Asaker |
+	print('''	| Port Checker - By A_Asaker |
 	~ Usage : ./Port_checkr.py [ host ] [ Port Number ]
 		- host : 
 			~ -l => local ip address, for this device.
