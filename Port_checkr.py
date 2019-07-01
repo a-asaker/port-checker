@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 #Coded By : A_Asaker
+
 import socket
 import sys,os,time
 import threading
@@ -18,7 +19,7 @@ def usage():
 			~ -l => local ip address, for this device.
 			~ -p or -r => public/remote ip address, for this device.
 			~ <ip address> => any other device ip address.
-		- ports : ~ if port is under 1024, then you must run it 
+		- ports : ~ if port is under 1024, then you should run it 
 			    with "sudo" [as a root].
 	~ Example : ./Port_checkr.py -l 214
 	~ Example : ./Port_checkr.py -r 214
@@ -61,18 +62,23 @@ if port <1024 and local :
 		sys.exit(0)
 
 established=0
+srvr_est=0
+exit_err=0
 def serv_est():
-	global established
+	global established,srvr_est,exit_err
 	try:
 		server.bind(("0.0.0.0",port))
 		server.listen(1)
+		srvr_est=1
 		conn,addr=server.accept()
 		established=1
 	except OSError as e:
-		print(" [~] May Be  There Are Some Other Applications Are Using Port {} !".format(port))
+		print(" [~] It Looks Like That There Are Some Other Applications Are Using Port '{}' !".format(port))
+		exit_err=1
 		sys.exit()
 	except Exception as e:
 		print(e)
+		exit_err=1
 		sys.exit()
 
 def clnt_cnn():
@@ -101,6 +107,10 @@ def clnt_cnn():
 def main():
 	if local:
 		threading.Thread(target=serv_est,daemon=True).start()
+		while not srvr_est and not exit_err:
+			pass
+	if exit_err:
+		sys.exit(0)
 	threading.Thread(target=clnt_cnn).start()
 
 if __name__ == '__main__':
